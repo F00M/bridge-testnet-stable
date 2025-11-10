@@ -16,15 +16,25 @@
   }
   *{box-sizing:border-box}
   body{
-    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    margin:0; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
     background: radial-gradient(circle at 20% -20%, var(--bg1), var(--bg2) 60%);
     color:var(--txt); font-family:'Poppins',system-ui,Arial,sans-serif;
+    padding:56px 12px 48px; /* top space for fixed logo, bottom space for footer */
   }
+  /* ---- Logo LayerZero (top-left) ---- */
+  .lzbrand {
+    position: fixed; top: 12px; left: 14px;
+    display: flex; align-items: center; gap: 8px;
+    z-index: 9999; text-decoration: none;
+  }
+  .lzbrand svg { height: 28px; width: auto; display: block; }
+  .lzbrand .word { font-weight: 700; font-size: 14px; color: #e8f3e9; opacity:.9 }
+  @media (max-width: 480px){ .lzbrand { top:10px; left:10px } }
+
   .wrap{width:min(960px,94vw)}
   .head{display:flex; flex-direction:column; align-items:center; gap:8px; margin-bottom:14px}
-  .head img{height:46px; width:auto; filter: drop-shadow(0 2px 8px rgba(0,0,0,.35))}
   .title{font-size:24px; font-weight:800}
-  .by{color:var(--sub); font-size:12px}
+
   .card{
     background: linear-gradient(180deg, rgba(16,25,16,.86), rgba(12,19,12,.86));
     border:1px solid var(--muted); border-radius:16px; padding:16px 16px 12px;
@@ -51,9 +61,7 @@
   button.ghost{background:#172617; color:#b9d9c0; border:1px solid #274527}
   button:disabled{opacity:.6; cursor:not-allowed}
   .full{width:100%}
-  .bar{
-    display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:10px
-  }
+  .bar{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:10px}
   .addr{margin-left:auto; color:#bfe9c7; font-size:12px}
   .balances{color:#bfe9c7; font-size:12px}
   pre{
@@ -61,15 +69,29 @@
     border-radius:12px; padding:14px; margin-top:14px; min-height:140px; color:#dff8e6;
     box-shadow: inset 0 0 0 1px rgba(34,66,34,.25);
   }
-  .foot{margin-top:8px; text-align:center; color:var(--sub); font-size:12px}
+  footer{position:fixed; bottom:12px; left:0; right:0; text-align:center; color:#8fcfa0; opacity:.9; font-size:12px}
 </style>
 </head>
 <body>
+<!-- Inline LayerZero “LZ” monogram (aman offline) -->
+<a class="lzbrand" href="#" aria-label="LayerZero">
+  <svg viewBox="0 0 128 128" role="img" aria-hidden="true">
+    <defs>
+      <linearGradient id="lzG" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffffff"/>
+        <stop offset="1" stop-color="#cfe9d4"/>
+      </linearGradient>
+    </defs>
+    <rect x="0" y="0" width="128" height="128" rx="28" fill="none"/>
+    <path d="M28 24 h20 v60 h52 v20 h-72 z" fill="url(#lzG)"/>
+    <path d="M40 24 h68 v16 h-42 l42 44 v16 h-72 v-16 h46 l-42 -44 z" fill="url(#lzG)" opacity=".95"/>
+  </svg>
+  <span class="word">LayerZero</span>
+</a>
+
 <div class="wrap">
   <div class="head">
-    <img alt="LayerZero" src="https://assets.layerzero.network/logo.svg" />
     <div class="title">Bridge Testnet Stable</div>
-    <div class="by">by thdx</div>
   </div>
 
   <div class="card">
@@ -163,9 +185,10 @@
     </div>
 
     <pre id="log">log siap...</pre>
-    <div class="foot">by thdx</div>
   </div>
 </div>
+
+<footer>by thdx</footer>
 
 <script>
 (function(){
@@ -378,6 +401,26 @@
   }
 
   // ---------- Unwrap ----------
+  async function readERC20Bal(token, who){
+    try{
+      if (!ethers.utils.isAddress(token)) return null;
+      const erc = new ethers.Contract(token, ERC20_ABI, provider);
+      const bal = await erc.balanceOf(who);
+      return ethers.utils.formatUnits(bal, 6);
+    }catch{ return null; }
+  }
+  async function updateBalances(){
+    try{
+      const usdt0 = $("uwToken").value.trim();
+      const gusdt = $("gusdt").value.trim();
+      const [b0, bg] = await Promise.all([
+        readERC20Bal(usdt0, me),
+        gusdt ? readERC20Bal(gusdt, me) : Promise.resolve(null)
+      ]);
+      $("balLine").textContent = `USDT0: ${b0 ?? '-'} | gUSDT: ${bg ?? '-'}`;
+    }catch(e){ $("balLine").textContent = "USDT0: - | gUSDT: -"; }
+  }
+
   async function unwrapNow(){
     try{
       await ensureProvider(); if(!signer) await connect();
