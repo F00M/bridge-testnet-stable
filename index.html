@@ -5,54 +5,63 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Bridge Testnet Stable</title>
 <meta name="theme-color" content="#0f1610" />
-<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 <style>
   :root{
-    --bg1:#0c120c; --bg2:#151e15;
-    --card:#101810; --muted:#203220; --field:#0c150d;
-    --acc1:#22c55e; --acc2:#16a34a; --txt:#dce6dc; --sub:#9ab79f;
+    --bg1:#0e1510; --bg2:#0a120b;
+    --card:#101910; --muted:#203520; --field:#0c150d;
+    --acc1:#22c55e; --acc2:#16a34a; --txt:#e8f3e9; --sub:#a9c7af;
   }
   *{box-sizing:border-box}
   body{
     margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
-    background: radial-gradient(circle at 30% -10%, var(--bg2), var(--bg1) 60%);
-    color:var(--txt); font-family:system-ui, Arial, sans-serif;
+    background: radial-gradient(circle at 20% -20%, var(--bg1), var(--bg2) 60%);
+    color:var(--txt); font-family:'Poppins',system-ui,Arial,sans-serif;
   }
-  .wrap{width:min(980px, 96vw)}
-  .head{
-    display:flex; align-items:center; gap:14px; margin-bottom:14px;
-  }
-  .head img{height:42px; width:auto; filter: drop-shadow(0 2px 6px rgba(0,0,0,.3));}
-  .title{font-size:22px; font-weight:800;}
-  .by{color:var(--sub); font-size:12px; margin-left:4px}
+  .wrap{width:min(960px,94vw)}
+  .head{display:flex; flex-direction:column; align-items:center; gap:8px; margin-bottom:14px}
+  .head img{height:46px; width:auto; filter: drop-shadow(0 2px 8px rgba(0,0,0,.35))}
+  .title{font-size:24px; font-weight:800}
+  .by{color:var(--sub); font-size:12px}
   .card{
-    background: linear-gradient(180deg, rgba(16,24,16,.8), rgba(12,18,12,.8));
-    border:1px solid var(--muted); border-radius:14px; padding:16px; box-shadow:0 10px 24px rgba(0,0,0,.35);
+    background: linear-gradient(180deg, rgba(16,25,16,.86), rgba(12,19,12,.86));
+    border:1px solid var(--muted); border-radius:16px; padding:16px 16px 12px;
+    box-shadow:0 12px 28px rgba(0,0,0,.35);
   }
-  .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
-  .col{background:rgba(20,30,20,.55); border:1px solid var(--muted); border-radius:12px; padding:14px}
-  h3{margin:0 0 6px; color:var(--acc1)}
+  .grid{display:grid; gap:14px}
+  @media(min-width:860px){ .grid{grid-template-columns:1fr 1fr} }
+  .section{
+    background:rgba(18,28,18,.58); border:1px solid var(--muted);
+    border-radius:12px; padding:14px;
+  }
+  h3{margin:0 0 8px; color:var(--acc1); font-size:16px}
   label{display:block; font-size:12px; color:var(--sub); margin-top:8px}
   input{
-    width:100%; padding:11px; margin-top:6px; border-radius:10px;
+    width:100%; padding:12px; margin-top:6px; border-radius:10px;
     border:1px solid var(--muted); background:var(--field); color:#fff; font-size:14px;
   }
   .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
   button{
-    padding:11px 12px; border-radius:10px; border:0; font-weight:800; cursor:pointer; color:#06110a;
-    background: linear-gradient(90deg, var(--acc1), var(--acc2)); transition: .2s;
+    padding:11px 14px; border-radius:10px; border:0; font-weight:800; cursor:pointer;
+    color:#06110a; background: linear-gradient(90deg, var(--acc1), var(--acc2)); transition:.15s;
   }
-  button.secondary{background:#223322; color:#bfe7c7}
-  button.ghost{background:#172317; color:#a6c6ad; border:1px solid #224122}
+  button.secondary{background:#223a23; color:#cfe9d4}
+  button.ghost{background:#172617; color:#b9d9c0; border:1px solid #274527}
   button:disabled{opacity:.6; cursor:not-allowed}
   .full{width:100%}
+  .bar{
+    display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:10px
+  }
+  .addr{margin-left:auto; color:#bfe9c7; font-size:12px}
+  .balances{color:#bfe9c7; font-size:12px}
   pre{
     white-space:pre-wrap; background:var(--field); border:1px solid var(--muted);
-    border-radius:12px; padding:14px; margin-top:14px; min-height:140px; color:#d7f6df;
+    border-radius:12px; padding:14px; margin-top:14px; min-height:140px; color:#dff8e6;
     box-shadow: inset 0 0 0 1px rgba(34,66,34,.25);
   }
-  .foot{margin-top:10px; text-align:right; color:var(--sub); font-size:12px}
+  .foot{margin-top:8px; text-align:center; color:var(--sub); font-size:12px}
 </style>
 </head>
 <body>
@@ -64,17 +73,16 @@
   </div>
 
   <div class="card">
-    <!-- Controls -->
-    <div class="row">
+    <div class="bar">
       <button id="btnConnect" class="secondary">🔌 Connect Wallet</button>
-      <button id="btnSepolia" class="ghost">🔁 Switch to Sepolia (11155111)</button>
-      <button id="btnStable" class="ghost">🔁 Switch to Stable (2201)</button>
-      <div id="addr" style="margin-left:auto; color:#a7d8b1; font-size:13px">Wallet: -</div>
+      <button id="btnSepolia" class="ghost">🔁 Sepolia (11155111)</button>
+      <button id="btnStable"  class="ghost">🔁 Stable (2201)</button>
+      <div id="addr" class="addr">Wallet: -</div>
     </div>
 
-    <div class="grid" style="margin-top:14px">
+    <div class="grid">
       <!-- BRIDGE -->
-      <div class="col">
+      <div class="section">
         <h3>🌉 Bridge (Sepolia → Stable)</h3>
         <label>Adapter (OFT)</label>
         <input id="bridgeAdapter" value="0xc099cD946d5efCC35A99D64E808c1430cEf08126" />
@@ -99,8 +107,8 @@
       </div>
 
       <!-- REDEEM -->
-      <div class="col">
-        <h3>🔁 Redeem (LayerZero)</h3>
+      <div class="section">
+        <h3>🛰 Redeem (LayerZero)</h3>
         <label>LayerZero TX Hash (srcTxHash Sepolia)</label>
         <input id="lzTx" placeholder="0x..." />
         <div class="row">
@@ -125,7 +133,7 @@
       </div>
 
       <!-- UNWRAP -->
-      <div class="col" style="grid-column: 1 / -1">
+      <div class="section" style="grid-column:1/-1">
         <h3>💧 Unwrap (USDT0 → gUSDT)</h3>
         <div class="row">
           <div style="flex:1">
@@ -139,14 +147,18 @@
         </div>
         <div class="row">
           <div style="flex:1">
+            <label>gUSDT (opsional, untuk baca saldo)</label>
+            <input id="gusdt" placeholder="0x... (kosongkan kalau tidak ada)" />
+          </div>
+          <div style="flex:1">
             <label>Amount (dec=6)</label>
             <input id="uwAmount" placeholder="mis: 10" />
           </div>
-          <div style="flex:1; display:flex; gap:10px; align-items:flex-end">
-            <button id="btnUwrap" class="full">🚀 Unwrap Now</button>
-          </div>
         </div>
-        <div id="uwBalance" style="margin-top:6px; color:#b7e7c1; font-size:13px">Saldo USDT0: -</div>
+        <div class="row">
+          <button id="btnUwrap" class="full">🚀 Unwrap Now</button>
+        </div>
+        <div class="balances" id="balLine">USDT0: - | gUSDT: -</div>
       </div>
     </div>
 
@@ -157,7 +169,7 @@
 
 <script>
 (function(){
-  // ---------- Shared ----------
+  // ---------- Config ----------
   const STABLE = { id:2201, hex:"0x899", rpc:"https://stable-jsonrpc.testnet.chain0.dev", explorer:"https://blockscout.testnet.stable.xyz" };
   const SEPOLIA= { id:11155111, hex:"0xaa36a7" };
   const ERC20_ABI = ["function approve(address,uint256) returns(bool)","function balanceOf(address) view returns (uint256)"];
@@ -167,34 +179,44 @@
   ];
   const LZ_ABI    = ["function lzReceive(uint32,bytes32,bytes,address) external"];
 
+  // ---------- Helpers ----------
   const $ = id => document.getElementById(id);
   const log = (m)=>{ const el=$("log"); el.textContent+=(el.textContent?"\n":"")+m; el.scrollTop=el.scrollHeight; console.log(m); };
+  const short = a => a ? (a.slice(0,6)+'…'+a.slice(-4)) : '-';
 
   let provider, signer, me;
 
-  async function connect(){
-    try{
+  async function ensureProvider(){
+    if (!provider){
       if(!window.ethereum) throw new Error("Buka di browser MetaMask/OKX/Trust.");
       provider = new ethers.providers.Web3Provider(window.ethereum,"any");
+    }
+  }
+
+  async function connect(){
+    try{
+      await ensureProvider();
       await provider.send("eth_requestAccounts",[]);
       signer = provider.getSigner();
       me = await signer.getAddress();
       const net = await provider.getNetwork();
-      $("addr").textContent = `Wallet: ${me.slice(0,6)}…${me.slice(-4)} | Chain: ${net.chainId}`;
+      $("addr").textContent = `Wallet: ${short(me)} | Chain: ${net.chainId}`;
       log(`✅ Connected: ${me}\nChain: ${net.chainId}`);
       // Prefill recipient for bridge
       if(!$("bridgeRecipient").value) $("bridgeRecipient").value = me;
-      // Update USDT0 balance if on Stable
-      if (net.chainId===STABLE.id) updateUwBalance();
+      // Update balances if on Stable
+      if (net.chainId===STABLE.id) updateBalances();
     }catch(e){ log("❌ Connect error: " + (e.message||e)); }
   }
+
   async function switchTo(chain){
     try{
+      await ensureProvider();
       await window.ethereum.request({ method:"wallet_switchEthereumChain", params:[{chainId:chain.hex}] });
       const net = await provider.getNetwork();
-      $("addr").textContent = `Wallet: ${me.slice(0,6)}…${me.slice(-4)} | Chain: ${net.chainId}`;
+      $("addr").textContent = `Wallet: ${short(me)} | Chain: ${net.chainId}`;
       log(`🔁 Switched to chain ${net.chainId}`);
-      if (net.chainId===STABLE.id) updateUwBalance();
+      if (net.chainId===STABLE.id) updateBalances();
     }catch(e){
       if(e.code===4902){
         const add = {
@@ -205,15 +227,38 @@
           nativeCurrency:{name:"ETH",symbol:"ETH",decimals:18}
         };
         await window.ethereum.request({ method:"wallet_addEthereumChain", params:[add] });
+        log("➕ Network ditambahkan.");
       } else {
         log("⚠️ Switch error: " + (e.message||e));
       }
     }
   }
 
-  // ---------- BRIDGE ----------
+  // ---------- Balances ----------
+  async function readERC20Bal(token, who){
+    try{
+      if (!ethers.utils.isAddress(token)) return null;
+      const erc = new ethers.Contract(token, ERC20_ABI, provider);
+      const bal = await erc.balanceOf(who);
+      return ethers.utils.formatUnits(bal, 6);
+    }catch{ return null; }
+  }
+  async function updateBalances(){
+    try{
+      const usdt0 = $("uwToken").value.trim();
+      const gusdt = $("gusdt").value.trim();
+      const [b0, bg] = await Promise.all([
+        readERC20Bal(usdt0, me),
+        gusdt ? readERC20Bal(gusdt, me) : Promise.resolve(null)
+      ]);
+      $("balLine").textContent = `USDT0: ${b0 ?? '-'} | gUSDT: ${bg ?? '-'}`;
+    }catch(e){ $("balLine").textContent = "USDT0: - | gUSDT: -"; }
+  }
+
+  // ---------- Bridge ----------
   async function approveBridge(){
     try{
+      await ensureProvider(); if(!signer) await connect();
       const token   = $("bridgeToken").value.trim();
       const adapter = $("bridgeAdapter").value.trim();
       const amountS = $("bridgeAmount").value.trim();
@@ -227,13 +272,16 @@
       log("✅ Approve sukses!");
     }catch(e){ log("❌ Approve error: " + (e.message||e)); }
   }
+
   async function bridgeNow(){
     try{
+      await ensureProvider(); if(!signer) await connect();
       const adapter = $("bridgeAdapter").value.trim();
       const dstEid  = Number($("bridgeDstEid").value.trim());
       const amountS = $("bridgeAmount").value.trim();
       const recipient = ($("bridgeRecipient").value.trim() || me).toLowerCase();
       if(!amountS) return log("⚠️ Isi amount dulu.");
+
       const amountLD = ethers.utils.parseUnits(amountS, 6);
       const to32 = "0x" + recipient.replace(/^0x/,"").padStart(64,"0");
       const oft = new ethers.Contract(adapter, OFT_ABI, signer);
@@ -265,8 +313,7 @@
     }
   }
 
-  // ---------- REDEEM ----------
-  function addrTo32(a){ const c=ethers.utils.getAddress(a); return "0x"+c.slice(2).padStart(64,"0"); }
+  // ---------- Redeem ----------
   function smartPickHexes(text){
     const hexes = text.match(/0x[0-9a-fA-F]{64,}/g) || [];
     const uniq = [...new Set(hexes)];
@@ -293,16 +340,8 @@
     if(!html) return log("⚠️ Tidak bisa ambil dari LZScan (CORS/API).");
     log(`🔍 Got from: ${used} (len=${html.length})`);
     const {sender32, payload} = smartPickHexes(html);
-    if(sender32){ $("lzSender32").value = sender32; log(`👤 sender32: ${sender32}`);}
-    else log("⚠️ sender32 tidak ditemukan.");
-    if(payload){
-      $("lzPayload").value = payload;
-      log(`📦 payload: ${payload.slice(0,66)}...`);
-      try{
-        const [to, amt] = ethers.utils.defaultAbiCoder.decode(["address","uint256"], payload);
-        log(`🧪 decoded → to=${to}, amount=${ethers.utils.formatUnits(amt,6)}`);
-      }catch{}
-    } else log("⚠️ payload tidak ditemukan.");
+    if(sender32){ $("lzSender32").value = sender32; log(`👤 sender32: ${sender32}`);} else log("⚠️ sender32 tidak ditemukan.");
+    if(payload){ $("lzPayload").value = payload; log(`📦 payload: ${payload.slice(0,66)}...`);} else log("⚠️ payload tidak ditemukan.");
   }
 
   function lzDecode(){
@@ -316,6 +355,7 @@
 
   async function lzRedeem(){
     try{
+      await ensureProvider(); if(!signer) await connect();
       const net = await provider.getNetwork();
       if (net.chainId!==STABLE.id) await switchTo(STABLE);
 
@@ -325,13 +365,11 @@
       if(!/^0x[0-9a-fA-F]{64}$/.test(sender32)) return log("⚠️ sender32 harus 32-byte hex.");
       if(!/^0x[0-9a-fA-F]+$/.test(payload))     return log("⚠️ payload tidak valid (hex).");
 
-      const executors = [$("lzExecutor").value.trim()];
-      // bisa tambah fallback lewat koma kalau mau
-      const c = new ethers.Contract(executors[0], LZ_ABI, signer);
-      log(`🚀 lzReceive on ${executors[0]} ...`);
-      const tx = await c.lzReceive(srcEid, sender32, payload, executors[0], { gasLimit:600000 });
-      log(`⏳ TX: ${tx.hash}`);
-      const rc = await tx.wait();
+      const executor = ethers.utils.getAddress($("lzExecutor").value.trim());
+      const c = new ethers.Contract(executor, LZ_ABI, signer);
+      log(`🚀 lzReceive on ${executor} ...`);
+      const tx = await c.lzReceive(srcEid, sender32, payload, executor, { gasLimit:600000 });
+      log(`⏳ TX: ${tx.hash}`); const rc = await tx.wait();
       log(`✅ Delivered at block ${rc.blockNumber}`);
     }catch(e){
       log("❌ Redeem error: " + (e.data?.message || e.message || e));
@@ -339,18 +377,10 @@
     }
   }
 
-  // ---------- UNWRAP ----------
-  async function updateUwBalance(){
-    try{
-      const token = $("uwToken").value.trim();
-      const erc = new ethers.Contract(token, ERC20_ABI, provider);
-      const bal = await erc.balanceOf(me);
-      $("uwBalance").textContent = `Saldo USDT0: ${Number(ethers.utils.formatUnits(bal,6))}`;
-    }catch(e){ $("uwBalance").textContent = "Saldo USDT0: (gagal baca)"; }
-  }
-
+  // ---------- Unwrap ----------
   async function unwrapNow(){
     try{
+      await ensureProvider(); if(!signer) await connect();
       const net = await provider.getNetwork();
       if (net.chainId!==STABLE.id) await switchTo(STABLE);
 
@@ -373,11 +403,11 @@
       const txB = await wrapper.depositTo(me, amtLD);
       log(`🚀 Unwrap TX: ${txB.hash}`); await txB.wait();
       log("✅ USDT0 sukses diubah jadi gUSDT 🎉");
-      updateUwBalance();
+      updateBalances();
     }catch(e){ log("❌ Unwrap error: " + (e.data?.message || e.message || e)); }
   }
 
-  // ---------- Bind UI ----------
+  // ---------- Bind ----------
   $("btnConnect").onclick = connect;
   $("btnSepolia").onclick = ()=> switchTo(SEPOLIA);
   $("btnStable").onclick  = ()=> switchTo(STABLE);
