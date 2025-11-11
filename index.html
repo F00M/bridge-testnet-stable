@@ -3,44 +3,41 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Bridge Testnet Stable • v6.1.0 (THDX)</title>
+<title>Bridge Testnet Stable • v6.1.1 (by thdx)</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 <style>
 :root{
-  --bg1:#0b1220; --bg2:#11251b; --card:#0f1625; --line:#22304a; --txt:#e6edf3; --mut:#8aa0b8;
+  --bg1:#0b1220; --bg2:#12261c; --card:#101826; --line:#22304a; --txt:#e6edf3; --mut:#9fb0d9;
   --g1:#22c55e; --g2:#16a34a; --ac1:#6ee7ff; --ac2:#7c5cff;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:Poppins,system-ui,Arial;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--txt);min-height:100vh;display:grid;place-items:center}
-.wrap{width:min(980px,96vw)}
+.wrap{width:min(820px,94vw)}
 .header{display:flex;align-items:center;justify-content:space-between;margin:14px 0}
 .brand{display:flex;align-items:center;gap:10px}
 .logo{width:28px;height:28px;border-radius:6px;background:radial-gradient(circle at 30% 30%,#fff 0 25%,#0000 26%),linear-gradient(135deg,#0d0d0d,#1a1a1a);display:grid;place-items:center;box-shadow:inset 0 0 0 1px #2b2b2b}
 .logo svg{width:16px;height:16px}
-.badge{font-weight:800}
-.small{font-size:12px;color:var(--mut)}
-.btn{border:0;border-radius:12px;padding:10px 14px;font-weight:800;color:#00130a;background:linear-gradient(90deg,#92ffc0,#a7f3d0);cursor:pointer}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 20px 48px rgba(0,0,0,.35)}
-.tabs{display:flex;gap:8px;margin-bottom:12px}
-.tab{flex:1;text-align:center;padding:10px;border-radius:12px;background:#0d1a2b;border:1px solid var(--line);cursor:pointer;font-weight:700;color:#cfe7da}
-.tab.active{background:linear-gradient(90deg,rgba(34,197,94,.15),rgba(22,163,74,.15));border-color:#2e6244}
-.grid{display:grid;gap:10px}
-.h2{margin:0 0 8px;font-size:16px;color:#d9ffea}
-hr{border:0;border-top:1px solid var(--line);margin:10px 0}
-label{font-size:12px;color:var(--mut);display:block;margin-top:8px}
+.ttl{font-weight:800}
+.sub{font-size:12px;color:var(--mut)}
+.btn{border:0;border-radius:12px;padding:10px 14px;font-weight:800;color:#06121a;background:linear-gradient(90deg,#92ffc0,#a7f3d0);cursor:pointer}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 18px 42px rgba(0,0,0,.32)}
+.h2{margin:8px 0 10px;font-size:16px;color:#d9ffea}
+.section{margin-top:6px;padding-top:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+label{font-size:12px;color:var(--mut);display:block;margin-bottom:6px}
 input{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:#0b1322;color:#fff;font-size:14px}
 .row{display:flex;gap:10px;align-items:center}
-.split2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.split3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 button.full{width:100%;margin-top:10px}
 .btn-ghost{background:linear-gradient(90deg,#22324a,#1a283f);color:#d7e9ff;border:1px solid #2a3a57}
 .btn-pri{background:linear-gradient(90deg,var(--ac1),var(--ac2));color:#06121a}
 .btn-ok{background:linear-gradient(90deg,var(--g1),var(--g2));color:#00130a}
-pre{white-space:pre-wrap;background:#0b1322;border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:12px;min-height:120px;font-size:12px}
+pre{white-space:pre-wrap;background:#0b1322;border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:10px;min-height:110px;font-size:12px}
+hr{border:0;border-top:1px solid var(--line);margin:14px 0}
 .note{font-size:12px;color:#a8c0d6}
 footer{margin:12px 0;text-align:center;color:#8aa0b8;font-size:12px}
-.hide{display:none}
+@media(max-width:640px){.grid2,.grid3{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -48,31 +45,23 @@ footer{margin:12px 0;text-align:center;color:#8aa0b8;font-size:12px}
   <div class="header">
     <div class="brand">
       <div class="logo" title="LayerZero">
-        <!-- LayerZero 'L' minimal -->
         <svg viewBox="0 0 24 24" fill="#9fe6ff"><path d="M6 4h5a2 2 0 0 1 2 2v12H9V8H6V4zM13 6h5v14h-5V6z"/></svg>
       </div>
       <div>
-        <div class="badge">Bridge Testnet Stable</div>
-        <div class="small">LayerZero • Sepolia ↔ Stable • v6.1.0</div>
+        <div class="ttl">Bridge Testnet Stable</div>
+        <div class="sub">LayerZero • Sepolia ↔ Stable • v6.1.1</div>
       </div>
     </div>
     <button id="btnConnect" class="btn">Connect</button>
   </div>
 
   <div class="card">
-    <!-- Tabs dalam satu card -->
-    <div class="tabs">
-      <div class="tab active" data-tab="bridge">Bridge</div>
-      <div class="tab" data-tab="redeem">Redeem</div>
-      <div class="tab" data-tab="unwrap">Unwrap</div>
-    </div>
-
     <!-- BRIDGE -->
-    <section id="panel-bridge" class="grid">
+    <div class="section">
       <div class="h2">🌉 Bridge (Sepolia → Stable)</div>
-      <div class="split2">
+      <div class="grid2">
         <div>
-          <label>Token (ERC20 Sepolia)</label>
+          <label>Token (USDT0 Sepolia)</label>
           <input id="b-token" value="0xc4DCC311c028e341fd8602D8eB89c5de94625927">
         </div>
         <div>
@@ -80,21 +69,21 @@ footer{margin:12px 0;text-align:center;color:#8aa0b8;font-size:12px}
           <input id="b-adapter" value="0xc099cD946d5efCC35A99D64E808c1430cEf08126">
         </div>
       </div>
-      <div class="split3">
+      <div class="grid3">
         <div>
           <label>Dec (USDT0=6)</label>
           <input id="b-dec" type="number" value="6">
         </div>
         <div>
-          <label>Executor Gas</label>
-          <input id="b-gas" type="number" value="250000">
-        </div>
-        <div>
           <label>dstEid (Stable)</label>
           <input id="b-dst" value="40374">
         </div>
+        <div>
+          <label>Executor Gas</label>
+          <input id="b-gas" type="number" value="250000">
+        </div>
       </div>
-      <div class="split2">
+      <div class="grid2">
         <div>
           <label>Jumlah (human)</label>
           <input id="b-amt" placeholder="mis. 10">
@@ -109,16 +98,15 @@ footer{margin:12px 0;text-align:center;color:#8aa0b8;font-size:12px}
         <button id="b-send" class="btn-ok full">🚀 Bridge Now</button>
       </div>
       <pre id="log-bridge">log siap...</pre>
-      <div class="note">v6.1.0: extraOptions executor gas otomatis agar relayer mau eksekusi di Stable.</div>
       <hr>
-    </section>
+    </div>
 
     <!-- REDEEM -->
-    <section id="panel-redeem" class="grid hide">
+    <div class="section">
       <div class="h2">📦 Redeem (LayerZero Manual)</div>
-      <div class="split2">
+      <div class="grid2">
         <div>
-          <label>srcTxHash (tx hash di Sepolia)</label>
+          <label>srcTxHash (TX di Sepolia)</label>
           <input id="r-tx" placeholder="0x...">
         </div>
         <div>
@@ -126,7 +114,7 @@ footer{margin:12px 0;text-align:center;color:#8aa0b8;font-size:12px}
           <input id="r-src" value="30101">
         </div>
       </div>
-      <div class="split2">
+      <div class="grid2">
         <div>
           <label>Executor</label>
           <input id="r-exec" value="0xaB329959fE048721CDF7f13a3eB43e4fc549a9de">
@@ -136,7 +124,7 @@ footer{margin:12px 0;text-align:center;color:#8aa0b8;font-size:12px}
           <input id="r-fallback" value="">
         </div>
       </div>
-      <div class="split2">
+      <div class="grid2">
         <div>
           <label>sender32 (bytes32)</label>
           <input id="r-sender" placeholder="0x + 64 hex">
@@ -146,7 +134,7 @@ footer{margin:12px 0;text-align:center;color:#8aa0b8;font-size:12px}
           <input id="r-payload" placeholder="0x...">
         </div>
       </div>
-      <div class="split2">
+      <div class="grid2">
         <div>
           <label>To (EOA)</label>
           <input id="r-to" placeholder="0x...">
@@ -162,14 +150,13 @@ footer{margin:12px 0;text-align:center;color:#8aa0b8;font-size:12px}
         <button id="r-send"  class="btn-ok full">🚀 Send lzReceive()</button>
       </div>
       <pre id="log-redeem">log siap...</pre>
-      <div class="note">Beberapa OApp membatasi caller lzReceive; jika revert, tunggu relayer resmi.</div>
       <hr>
-    </section>
+    </div>
 
     <!-- UNWRAP -->
-    <section id="panel-unwrap" class="grid hide">
+    <div class="section">
       <div class="h2">💧 Unwrap USDT0 → gUSDT (Stable)</div>
-      <div class="split2">
+      <div class="grid2">
         <div>
           <label>USDT0 (Stable)</label>
           <input id="u-usdt0" value="0x78Cf24370174180738c5B8E352B6D14c83a6c9A9">
@@ -179,7 +166,7 @@ footer{margin:12px 0;text-align:center;color:#8aa0b8;font-size:12px}
           <input id="u-wrap" value="0xcAB8F3ed8528655E0C2fad1C504c6CfEccf50B90">
         </div>
       </div>
-      <div class="split2">
+      <div class="grid2">
         <div>
           <label>Dec (USDT0=6)</label>
           <input id="u-dec" type="number" value="6">
@@ -189,17 +176,17 @@ footer{margin:12px 0;text-align:center;color:#8aa0b8;font-size:12px}
           <input id="u-amt" placeholder="mis. 10">
         </div>
       </div>
-      <div class="row">
+      <div class="row" style="justify-content:space-between">
         <div class="note" id="u-bal">Saldo: -</div>
-        <button id="u-refresh" class="btn-ghost" style="margin-left:auto">↻ Refresh</button>
+        <button id="u-refresh" class="btn-ghost">↻ Refresh</button>
       </div>
       <div class="row">
         <button id="u-approve" class="btn-pri full">✅ Approve</button>
         <button id="u-deposit" class="btn-ok full">🚀 Unwrap</button>
       </div>
       <pre id="log-unwrap">log siap...</pre>
-    </section>
-    <div class="note">Bridge, Redeem, dan Unwrap langsung dari satu halaman. Full LayerZero stack.</div>
+    </div>
+    <div class="note">Bridge → Redeem → Unwrap dalam satu halaman. LayerZero stack.</div>
   </div>
 
   <footer>by thdx</footer>
@@ -244,7 +231,7 @@ function parseFee(any){
 function buildExtraOptions(gas){
   const g = ethers.BigNumber.from(String(gas||250000));
   const gasHex = ethers.utils.hexZeroPad(ethers.utils.hexlify(g), 8).slice(2);
-  const valHex = "00000000000000000000000000000000";
+  const valHex = "00000000000000000000000000000000"; // native cap = 0
   return "0x000301001a"+gasHex+valHex;
 }
 async function ensureChain(target){
@@ -274,23 +261,11 @@ $("btnConnect").onclick = async ()=>{
     logU(`✅ Connected: ${me}\nChain: ${net.chainId}`);
     if(!$("b-to").value) $("b-to").value = me;
     if(!$("r-to").value) $("r-to").value = me;
-    await refreshUSDT0(); // kalau sudah di Stable, akan tampil
+    await refreshUSDT0();
   }catch(e){
     const msg=e?.message||e; logB("❌ Connect error: "+msg); logR("❌ Connect error: "+msg); logU("❌ Connect error: "+msg);
   }
 };
-
-/* ====== TABS (single card) ====== */
-document.querySelectorAll(".tab").forEach(t=>{
-  t.onclick=()=>{
-    document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
-    t.classList.add("active");
-    ["bridge","redeem","unwrap"].forEach(k=>{
-      const v=(t.dataset.tab===k)?"remove":"add";
-      document.getElementById("panel-"+k).classList[v]("hide");
-    });
-  };
-});
 
 /* ====== BRIDGE ====== */
 $("b-approve").onclick = async ()=>{
@@ -335,7 +310,7 @@ $("b-send").onclick = async ()=>{
     const tx=await oft.send(sendParam,fee,me,{value:nativeFee,gasLimit:400000});
     logB(`⏳ TX: ${tx.hash}`);
     const rc=await tx.wait();
-    logB(`✅ Bridge sent @ block ${rc.blockNumber}\nℹ️ Relayer akan deliver ke Stable. Dengan extraOptions, mestinya tidak nyangkut.`);
+    logB(`✅ Bridge sent @ block ${rc.blockNumber}\nℹ️ Relayer akan deliver ke Stable.`);
   }catch(e){ logB("❌ Bridge error: "+(e?.error?.message||e?.reason||e?.message||e)); }
 };
 
