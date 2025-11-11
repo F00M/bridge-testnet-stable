@@ -3,202 +3,221 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Bridge Testnet Stable • v6.0.0 (THDX)</title>
+<title>Bridge Testnet Stable • v6.1.0 (THDX)</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 <style>
 :root{
-  --g1:#22c55e; --g2:#16a34a; --bg1:#f6fff7; --bg2:#e9fbee; --card:#ffffff;
-  --line:#e6f7ec; --txt:#0f2b22; --mut:#6b7f77; --ink:#0b1220;
+  --bg1:#0b1220; --bg2:#11251b; --card:#0f1625; --line:#22304a; --txt:#e6edf3; --mut:#8aa0b8;
+  --g1:#22c55e; --g2:#16a34a; --ac1:#6ee7ff; --ac2:#7c5cff;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:Poppins,system-ui,Arial;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--txt);min-height:100vh;display:grid;place-items:center}
-.shell{width:min(920px,96vw)}
-.header{display:flex;align-items:center;justify-content:space-between;margin:16px 0}
+.wrap{width:min(980px,96vw)}
+.header{display:flex;align-items:center;justify-content:space-between;margin:14px 0}
 .brand{display:flex;align-items:center;gap:10px}
-.badge{width:30px;height:30px;border-radius:8px;background:conic-gradient(from 180deg,var(--g1),var(--g2))}
-.btn{border:0;border-radius:12px;padding:10px 14px;font-weight:800;color:#fff;background:linear-gradient(90deg,var(--g1),var(--g2));cursor:pointer}
-.tabs{display:flex;gap:8px;margin-bottom:12px}
-.tab{flex:1;text-align:center;padding:12px;border-radius:12px;background:#f2fbf5;border:1px solid var(--line);cursor:pointer;font-weight:700}
-.tab.active{background:linear-gradient(90deg,#d8ffe4,#ecfff1);border-color:#c8f4d3}
-.grid{display:grid;grid-template-columns:1fr;gap:12px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 18px 40px rgba(16,185,129,.12)}
-.row{display:flex;gap:10px;align-items:center}
-.hsplit{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-label{font-size:12px;color:var(--mut);display:block;margin-top:8px}
-input,select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:14px;color:var(--ink)}
-pre{white-space:pre-wrap;background:#fbfffd;border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:12px;min-height:120px;font-size:12px;color:#213a31}
-h3{margin:0 0 10px}
-.note{font-size:12px;color:var(--mut)}
-.kiri{display:flex;align-items:center;gap:8px}
+.logo{width:28px;height:28px;border-radius:6px;background:radial-gradient(circle at 30% 30%,#fff 0 25%,#0000 26%),linear-gradient(135deg,#0d0d0d,#1a1a1a);display:grid;place-items:center;box-shadow:inset 0 0 0 1px #2b2b2b}
+.logo svg{width:16px;height:16px}
+.badge{font-weight:800}
 .small{font-size:12px;color:var(--mut)}
-.center{display:grid;place-items:center;color:var(--mut);font-weight:700}
+.btn{border:0;border-radius:12px;padding:10px 14px;font-weight:800;color:#00130a;background:linear-gradient(90deg,#92ffc0,#a7f3d0);cursor:pointer}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 20px 48px rgba(0,0,0,.35)}
+.tabs{display:flex;gap:8px;margin-bottom:12px}
+.tab{flex:1;text-align:center;padding:10px;border-radius:12px;background:#0d1a2b;border:1px solid var(--line);cursor:pointer;font-weight:700;color:#cfe7da}
+.tab.active{background:linear-gradient(90deg,rgba(34,197,94,.15),rgba(22,163,74,.15));border-color:#2e6244}
+.grid{display:grid;gap:10px}
+.h2{margin:0 0 8px;font-size:16px;color:#d9ffea}
+hr{border:0;border-top:1px solid var(--line);margin:10px 0}
+label{font-size:12px;color:var(--mut);display:block;margin-top:8px}
+input{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:#0b1322;color:#fff;font-size:14px}
+.row{display:flex;gap:10px;align-items:center}
+.split2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.split3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 button.full{width:100%;margin-top:10px}
-.btn-ok{background:linear-gradient(90deg,var(--g1),var(--g2));color:#fff}
-.btn-ghost{background:#eaf8ef;color:#0f2b22;border:1px solid var(--line)}
-footer{margin:12px 0;text-align:center;color:var(--mut);font-size:12px}
-hr{border:0;border-top:1px solid var(--line);margin:14px 0}
-.bad{color:#b91c1c}
-.good{color:#065f46}
+.btn-ghost{background:linear-gradient(90deg,#22324a,#1a283f);color:#d7e9ff;border:1px solid #2a3a57}
+.btn-pri{background:linear-gradient(90deg,var(--ac1),var(--ac2));color:#06121a}
+.btn-ok{background:linear-gradient(90deg,var(--g1),var(--g2));color:#00130a}
+pre{white-space:pre-wrap;background:#0b1322;border:1px solid var(--line);border-radius:12px;padding:10px;margin-top:12px;min-height:120px;font-size:12px}
+.note{font-size:12px;color:#a8c0d6}
+footer{margin:12px 0;text-align:center;color:#8aa0b8;font-size:12px}
+.hide{display:none}
 </style>
 </head>
 <body>
-<div class="shell">
+<div class="wrap">
   <div class="header">
-    <div class="brand"><div class="badge"></div><div><div style="font-weight:800">Bridge Testnet Stable</div><div class="small">Sepolia ↔ Stable • LayerZero + Unwrap</div></div></div>
+    <div class="brand">
+      <div class="logo" title="LayerZero">
+        <!-- LayerZero 'L' minimal -->
+        <svg viewBox="0 0 24 24" fill="#9fe6ff"><path d="M6 4h5a2 2 0 0 1 2 2v12H9V8H6V4zM13 6h5v14h-5V6z"/></svg>
+      </div>
+      <div>
+        <div class="badge">Bridge Testnet Stable</div>
+        <div class="small">LayerZero • Sepolia ↔ Stable • v6.1.0</div>
+      </div>
+    </div>
     <button id="btnConnect" class="btn">Connect</button>
   </div>
 
-  <div class="tabs">
-    <div class="tab active" data-tab="bridge">Bridge</div>
-    <div class="tab" data-tab="redeem">Redeem</div>
-    <div class="tab" data-tab="unwrap">Unwrap</div>
-  </div>
+  <div class="card">
+    <!-- Tabs dalam satu card -->
+    <div class="tabs">
+      <div class="tab active" data-tab="bridge">Bridge</div>
+      <div class="tab" data-tab="redeem">Redeem</div>
+      <div class="tab" data-tab="unwrap">Unwrap</div>
+    </div>
 
-  <div id="panel-bridge" class="card grid">
-    <h3>🌉 Bridge (Sepolia → Stable)</h3>
-    <div class="hsplit">
-      <div>
-        <label>Token (ERC20 Sepolia)</label>
-        <input id="b-token" value="0xc4DCC311c028e341fd8602D8eB89c5de94625927">
+    <!-- BRIDGE -->
+    <section id="panel-bridge" class="grid">
+      <div class="h2">🌉 Bridge (Sepolia → Stable)</div>
+      <div class="split2">
+        <div>
+          <label>Token (ERC20 Sepolia)</label>
+          <input id="b-token" value="0xc4DCC311c028e341fd8602D8eB89c5de94625927">
+        </div>
+        <div>
+          <label>Adapter (OFT Sepolia)</label>
+          <input id="b-adapter" value="0xc099cD946d5efCC35A99D64E808c1430cEf08126">
+        </div>
       </div>
-      <div>
-        <label>Adapter (OFT Sepolia)</label>
-        <input id="b-adapter" value="0xc099cD946d5efCC35A99D64E808c1430cEf08126">
+      <div class="split3">
+        <div>
+          <label>Dec (USDT0=6)</label>
+          <input id="b-dec" type="number" value="6">
+        </div>
+        <div>
+          <label>Executor Gas</label>
+          <input id="b-gas" type="number" value="250000">
+        </div>
+        <div>
+          <label>dstEid (Stable)</label>
+          <input id="b-dst" value="40374">
+        </div>
       </div>
-    </div>
-    <div class="hsplit">
-      <div>
-        <label>Dec (USDT0=6)</label>
-        <input id="b-dec" type="number" value="6">
+      <div class="split2">
+        <div>
+          <label>Jumlah (human)</label>
+          <input id="b-amt" placeholder="mis. 10">
+        </div>
+        <div>
+          <label>Penerima (default: wallet sendiri)</label>
+          <input id="b-to" placeholder="0x...">
+        </div>
       </div>
-      <div>
-        <label>Executor Gas</label>
-        <input id="b-gas" type="number" value="250000">
+      <div class="row">
+        <button id="b-approve" class="btn-pri full">✅ Approve</button>
+        <button id="b-send" class="btn-ok full">🚀 Bridge Now</button>
       </div>
-    </div>
-    <div class="hsplit">
-      <div>
-        <label>dstEid (Stable)</label>
-        <input id="b-dst" value="40374">
-      </div>
-      <div>
-        <label>Jumlah (human)</label>
-        <input id="b-amt" placeholder="mis. 10">
-      </div>
-    </div>
-    <div>
-      <label>Penerima (default: wallet sendiri)</label>
-      <input id="b-to" placeholder="0x...">
-    </div>
-    <div class="row">
-      <button id="b-approve" class="btn-ghost full">✅ Approve</button>
-      <button id="b-send" class="btn-ok full">🚀 Bridge Now</button>
-    </div>
-    <pre id="log-bridge">log siap...</pre>
-    <div class="note">v5.3.6: extraOptions executor gas otomatis agar relayer mau eksekusi di Stable.</div>
-  </div>
+      <pre id="log-bridge">log siap...</pre>
+      <div class="note">v6.1.0: extraOptions executor gas otomatis agar relayer mau eksekusi di Stable.</div>
+      <hr>
+    </section>
 
-  <div id="panel-redeem" class="card grid" style="display:none">
-    <h3>📦 Redeem (LayerZero Manual)</h3>
-    <div class="hsplit">
-      <div>
-        <label>srcTxHash (tx hash di Sepolia)</label>
-        <input id="r-tx" placeholder="0x...">
+    <!-- REDEEM -->
+    <section id="panel-redeem" class="grid hide">
+      <div class="h2">📦 Redeem (LayerZero Manual)</div>
+      <div class="split2">
+        <div>
+          <label>srcTxHash (tx hash di Sepolia)</label>
+          <input id="r-tx" placeholder="0x...">
+        </div>
+        <div>
+          <label>srcEid</label>
+          <input id="r-src" value="30101">
+        </div>
       </div>
-      <div>
-        <label>srcEid</label>
-        <input id="r-src" value="30101">
+      <div class="split2">
+        <div>
+          <label>Executor</label>
+          <input id="r-exec" value="0xaB329959fE048721CDF7f13a3eB43e4fc549a9de">
+        </div>
+        <div>
+          <label>Fallback Executors (koma)</label>
+          <input id="r-fallback" value="">
+        </div>
       </div>
-    </div>
-    <div class="hsplit">
-      <div>
-        <label>Executor</label>
-        <input id="r-exec" value="0xaB329959fE048721CDF7f13a3eB43e4fc549a9de">
+      <div class="split2">
+        <div>
+          <label>sender32 (bytes32)</label>
+          <input id="r-sender" placeholder="0x + 64 hex">
+        </div>
+        <div>
+          <label>payload (abi.encode(address,uint256))</label>
+          <input id="r-payload" placeholder="0x...">
+        </div>
       </div>
-      <div>
-        <label>Fallback Executors (koma)</label>
-        <input id="r-fallback" value="">
+      <div class="split2">
+        <div>
+          <label>To (EOA)</label>
+          <input id="r-to" placeholder="0x...">
+        </div>
+        <div>
+          <label>Amount (human, dec=6)</label>
+          <input id="r-amt" placeholder="10">
+        </div>
       </div>
-    </div>
-    <div class="hsplit">
-      <div>
-        <label>sender32 (bytes32)</label>
-        <input id="r-sender" placeholder="0x + 64 hex">
+      <div class="row">
+        <button id="r-fetch" class="btn-ghost full">🔎 Auto-Fetch LZScan</button>
+        <button id="r-build" class="btn-ghost full">🧱 Build Payload</button>
+        <button id="r-send"  class="btn-ok full">🚀 Send lzReceive()</button>
       </div>
-      <div>
-        <label>payload (abi.encode(address,uint256))</label>
-        <input id="r-payload" placeholder="0x...">
-      </div>
-    </div>
-    <div class="hsplit">
-      <div>
-        <label>To (EOA)</label>
-        <input id="r-to" placeholder="0x...">
-      </div>
-      <div>
-        <label>Amount (human, dec=6)</label>
-        <input id="r-amt" placeholder="10">
-      </div>
-    </div>
-    <div class="row">
-      <button id="r-fetch" class="btn-ghost full">🔎 Auto-Fetch LZScan</button>
-      <button id="r-build" class="btn-ghost full">🧱 Build Payload</button>
-      <button id="r-send"  class="btn-ok full">🚀 Send lzReceive()</button>
-    </div>
-    <pre id="log-redeem">log siap...</pre>
-    <div class="note">Catatan: beberapa OApp membatasi caller lzReceive; jika revert, tunggu relayer resmi.</div>
-  </div>
+      <pre id="log-redeem">log siap...</pre>
+      <div class="note">Beberapa OApp membatasi caller lzReceive; jika revert, tunggu relayer resmi.</div>
+      <hr>
+    </section>
 
-  <div id="panel-unwrap" class="card grid" style="display:none">
-    <h3>💧 Unwrap USDT0 → gUSDT (Stable)</h3>
-    <div class="hsplit">
-      <div>
-        <label>USDT0 (Stable)</label>
-        <input id="u-usdt0" value="0x78Cf24370174180738c5B8E352B6D14c83a6c9A9">
+    <!-- UNWRAP -->
+    <section id="panel-unwrap" class="grid hide">
+      <div class="h2">💧 Unwrap USDT0 → gUSDT (Stable)</div>
+      <div class="split2">
+        <div>
+          <label>USDT0 (Stable)</label>
+          <input id="u-usdt0" value="0x78Cf24370174180738c5B8E352B6D14c83a6c9A9">
+        </div>
+        <div>
+          <label>Wrapper (depositTo)</label>
+          <input id="u-wrap" value="0xcAB8F3ed8528655E0C2fad1C504c6CfEccf50B90">
+        </div>
       </div>
-      <div>
-        <label>Wrapper (depositTo)</label>
-        <input id="u-wrap" value="0xcAB8F3ed8528655E0C2fad1C504c6CfEccf50B90">
+      <div class="split2">
+        <div>
+          <label>Dec (USDT0=6)</label>
+          <input id="u-dec" type="number" value="6">
+        </div>
+        <div>
+          <label>Amount (human)</label>
+          <input id="u-amt" placeholder="mis. 10">
+        </div>
       </div>
-    </div>
-    <div class="hsplit">
-      <div>
-        <label>Dec (USDT0=6)</label>
-        <input id="u-dec" type="number" value="6">
+      <div class="row">
+        <div class="note" id="u-bal">Saldo: -</div>
+        <button id="u-refresh" class="btn-ghost" style="margin-left:auto">↻ Refresh</button>
       </div>
-      <div>
-        <label>Amount (human)</label>
-        <input id="u-amt" placeholder="mis. 10">
+      <div class="row">
+        <button id="u-approve" class="btn-pri full">✅ Approve</button>
+        <button id="u-deposit" class="btn-ok full">🚀 Unwrap</button>
       </div>
-    </div>
-    <div class="row">
-      <div class="kiri"><div>Saldo USDT0:</div><div id="u-bal" class="good">-</div></div>
-      <button id="u-refresh" class="btn-ghost" style="margin-left:auto">↻ Refresh</button>
-    </div>
-    <div class="row">
-      <button id="u-approve" class="btn-ghost full">✅ Approve</button>
-      <button id="u-deposit" class="btn-ok full">🚀 Unwrap</button>
-    </div>
-    <pre id="log-unwrap">log siap...</pre>
+      <pre id="log-unwrap">log siap...</pre>
+    </section>
+    <div class="note">Bridge, Redeem, dan Unwrap langsung dari satu halaman. Full LayerZero stack.</div>
   </div>
 
   <footer>by thdx</footer>
 </div>
 
 <script>
-/* ============ CONFIG ============ */
-const SEP = { id:11155111, hex:"0xaa36a7", name:"Sepolia",  explorer:"https://sepolia.etherscan.io" };
-const STB = { id:2201,     hex:"0x899",   name:"Stable",   rpc:"https://stable-jsonrpc.testnet.chain0.dev", explorer:"https://blockscout.testnet.stable.xyz" };
+/* ====== CONFIG ====== */
+const SEP = { id:11155111, hex:"0xaa36a7", name:"Sepolia", explorer:"https://sepolia.etherscan.io" };
+const STB = { id:2201,     hex:"0x899",   name:"Stable",  rpc:"https://stable-jsonrpc.testnet.chain0.dev", explorer:"https://blockscout.testnet.stable.xyz" };
 
-/* ============ GLOBALS ============ */
+/* ====== GLOBALS ====== */
 let web3, signer, me;
 const $ = (id)=>document.getElementById(id);
-const logB = (m)=>{ const el=$("log-bridge"); el.textContent+=(el.textContent?"\n":"")+m; el.scrollTop=el.scrollHeight; console.log(m); };
-const logR = (m)=>{ const el=$("log-redeem"); el.textContent+=(el.textContent?"\n":"")+m; el.scrollTop=el.scrollHeight; console.log(m); };
-const logU = (m)=>{ const el=$("log-unwrap"); el.textContent+=(el.textContent?"\n":"")+m; el.scrollTop=el.scrollHeight; console.log(m); };
+const logB = (m)=>{ const el=$("log-bridge"); el.textContent+=(el.textContent?"\n":"")+m; el.scrollTop=el.scrollHeight; };
+const logR = (m)=>{ const el=$("log-redeem"); el.textContent+=(el.textContent?"\n":"")+m; el.scrollTop=el.scrollHeight; };
+const logU = (m)=>{ const el=$("log-unwrap"); el.textContent+=(el.textContent?"\n":"")+m; el.scrollTop=el.scrollHeight; };
 
-/* ============ ABIs ============ */
+/* ====== ABIs ====== */
 const ERC20_ABI = [
   "function approve(address,uint256) returns(bool)",
   "function balanceOf(address) view returns(uint256)"
@@ -210,7 +229,7 @@ const OFT_ABI = [
 const LZ_ABI = ["function lzReceive(uint32,bytes32,bytes,address) external"];
 const WRAP_ABI = ["function depositTo(address,uint256) external"];
 
-/* ============ HELPERS ============ */
+/* ====== HELPERS ====== */
 const addr32 = (a)=>"0x"+ethers.utils.getAddress(a).slice(2).padStart(64,"0");
 const parseUnits = (v,dec)=>ethers.utils.parseUnits(String(v).trim(), Number(dec||6));
 const fmtEth = (bn)=>ethers.utils.formatEther(bn);
@@ -240,7 +259,7 @@ async function ensureChain(target){
   }
 }
 
-/* ============ CONNECT ============ */
+/* ====== CONNECT ====== */
 $("btnConnect").onclick = async ()=>{
   try{
     if(!window.ethereum) throw new Error("Buka di MetaMask/OKX/Trust/CB Wallet.");
@@ -255,24 +274,25 @@ $("btnConnect").onclick = async ()=>{
     logU(`✅ Connected: ${me}\nChain: ${net.chainId}`);
     if(!$("b-to").value) $("b-to").value = me;
     if(!$("r-to").value) $("r-to").value = me;
-    await refreshUSDT0();
+    await refreshUSDT0(); // kalau sudah di Stable, akan tampil
   }catch(e){
     const msg=e?.message||e; logB("❌ Connect error: "+msg); logR("❌ Connect error: "+msg); logU("❌ Connect error: "+msg);
   }
 };
 
-/* ============ TABS ============ */
+/* ====== TABS (single card) ====== */
 document.querySelectorAll(".tab").forEach(t=>{
   t.onclick=()=>{
     document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
     t.classList.add("active");
     ["bridge","redeem","unwrap"].forEach(k=>{
-      $("panel-"+k).style.display = (t.dataset.tab===k)?"block":"none";
+      const v=(t.dataset.tab===k)?"remove":"add";
+      document.getElementById("panel-"+k).classList[v]("hide");
     });
   };
 });
 
-/* ============ BRIDGE ============ */
+/* ====== BRIDGE ====== */
 $("b-approve").onclick = async ()=>{
   try{
     await ensureChain(SEP);
@@ -319,7 +339,7 @@ $("b-send").onclick = async ()=>{
   }catch(e){ logB("❌ Bridge error: "+(e?.error?.message||e?.reason||e?.message||e)); }
 };
 
-/* ============ REDEEM ============ */
+/* ====== REDEEM ====== */
 async function fetchLZ(txhash){
   const urls=[
     `https://api.testnet.layerzeroscan.com/tx/${txhash}`,
@@ -329,12 +349,11 @@ async function fetchLZ(txhash){
     try{
       const r=await fetch(u,{mode:"cors"}); if(!r.ok) continue;
       const t=await r.text();
-      // cari hex panjang
       const hexes=(t.match(/0x[0-9a-fA-F]{64,}/g)||[]);
       const uniq=[...new Set(hexes)];
       const sender=uniq.find(h=>h.length===66);
       const payload=uniq.find(h=>h.length>66 && h.length%2===0);
-      return {sender,payload,raw:t.slice(0,200)};
+      return {sender,payload};
     }catch{}
   }
   return {};
@@ -353,7 +372,7 @@ $("r-fetch").onclick = async ()=>{
         const [to,amt]=ethers.utils.defaultAbiCoder.decode(["address","uint256"],payload);
         $("r-to").value=to; $("r-amt").value=ethers.utils.formatUnits(amt,6);
         logR(`🧪 decoded → to=${to}, amount=${$("r-amt").value}`);
-      }catch{ logR("ℹ️ payload bukan (address,uint256), isi manual kalau perlu."); }
+      }catch{ logR("ℹ️ payload bukan (address,uint256), isi manual jika perlu."); }
     } else logR("⚠️ payload tidak ditemukan.");
   }catch(e){ logR("❌ Fetch error: "+(e?.message||e)); }
 };
@@ -395,7 +414,7 @@ $("r-send").onclick = async ()=>{
   }catch(e){ logR("❌ Redeem error: "+(e?.message||e)); }
 };
 
-/* ============ UNWRAP ============ */
+/* ====== UNWRAP ====== */
 async function refreshUSDT0(){
   try{
     if(!web3||!me) return;
@@ -405,8 +424,8 @@ async function refreshUSDT0(){
     const erc=new ethers.Contract(usdt0,ERC20_ABI,web3);
     const bal=await erc.balanceOf(me);
     const dec=Number($("u-dec").value||6);
-    $("u-bal").textContent = ethers.utils.formatUnits(bal,dec)+" USDT0";
-  }catch{ $("u-bal").textContent="-"; }
+    $("u-bal").textContent = "Saldo: "+ethers.utils.formatUnits(bal,dec)+" USDT0";
+  }catch{ $("u-bal").textContent="Saldo: -"; }
 }
 $("u-refresh").onclick = async ()=>{ await ensureChain(STB); await refreshUSDT0(); };
 
@@ -442,11 +461,6 @@ $("u-deposit").onclick = async ()=>{
     await refreshUSDT0();
   }catch(e){ logU("❌ Unwrap error: "+(e?.message||e)); }
 };
-
-/* ============ DEFAULT ============ */
-(function initUI(){
-  // default tab already active
-})();
 </script>
 </body>
 </html>
