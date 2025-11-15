@@ -1,369 +1,338 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Bridge Testnet Stable — Fixed</title>
-<meta name="theme-color" content="#0f1610" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bridge Stable Testnet — iOS Fixed</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+
 <style>
   :root{
-    --bg1:#0e1510; --bg2:#0a120b;
+    --bg1:#0e1510; --bg2:#000; 
     --card:#101910; --muted:#203520; --field:#0c150d;
     --acc1:#22c55e; --acc2:#16a34a; --txt:#e8f3e9; --sub:#a9c7af;
   }
-  *{box-sizing:border-box}
   body{
-    margin:0; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    background: radial-gradient(circle at 20% -20%, var(--bg1), var(--bg2) 60%);
-    color:var(--txt); font-family:'Poppins',system-ui,Arial,sans-serif;
-    padding:56px 12px 48px;
+    margin:0;
+    background:linear-gradient(180deg,#0e1510,#091009);
+    min-height:100vh;
+    font-family:'Poppins',sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px 12px;
+    color:var(--txt);
   }
-  .lzbrand{position:fixed;top:12px;left:14px;display:flex;align-items:center;gap:8px;z-index:9999;text-decoration:none}
-  .lzbrand svg{height:28px;width:auto;display:block}
-  .lzbrand .word{font-weight:700;font-size:14px;color:#ffffff;opacity:.95}
-
-  .wrap{width:min(560px,96vw)}
+  .wrap{width:min(480px,95vw);}
   .card{
-    background: linear-gradient(180deg, rgba(16,25,16,.86), rgba(12,19,12,.86));
-    border:1px solid var(--muted); border-radius:16px; padding:22px;
-    box-shadow:0 12px 28px rgba(0,0,0,0.35);
+    padding:20px;
+    border-radius:16px;
+    border:1px solid var(--muted);
+    background:rgba(0,0,0,0.35);
   }
-  h2{margin:0 0 10px; color:var(--acc1); font-size:20px; text-align:center}
-  h3{margin:0 0 8px; color:var(--acc1); font-size:16px; text-align:left}
-  label{display:block; font-size:12px; color:var(--sub); margin-top:8px}
-  input, select{
-    width:100%; padding:12px; margin-top:6px; border-radius:10px;
-    border:1px solid var(--muted); background:var(--field); color:#fff; font-size:14px;
+  h2{text-align:center;color:var(--acc1);margin-top:0;}
+  label{font-size:12px;color:var(--sub);}
+  input{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid var(--muted);
+    background:var(--field);
+    color:#fff;
+    margin-top:4px;
+    font-size:14px;
   }
   button{
-    width:100%; padding:12px; border-radius:10px; border:0;
-    font-weight:700; cursor:pointer; margin-top:10px;
-    color:#06110a; background:linear-gradient(90deg,var(--acc1),var(--acc2));
+    width:100%;padding:12px;margin-top:10px;border:0;
+    border-radius:10px;font-weight:700;
+    background:linear-gradient(90deg,var(--acc1),var(--acc2));
+    color:#06110a;
   }
-  button.secondary{background:#223a23; color:#cfe9d4}
-  .hint{font-size:12px; color:#86efac; margin-top:6px}
+  button.secondary{background:#223a23;color:#cfe9d4}
   pre{
-    white-space:pre-wrap; background:var(--field); border:1px solid var(--muted);
-    border-radius:12px; padding:14px; margin-top:14px; min-height:120px;
-    color:#dff8e6; font-size:13px; overflow:auto;
+    margin-top:14px;
+    background:#0d150d;
+    padding:14px;
+    border-radius:10px;
+    min-height:120px;
+    border:1px solid #203520;
+    font-size:12px;
+    white-space:pre-wrap;
   }
-  hr{border:0;border-top:1px solid #203520;margin:16px 0}
-  footer{position:fixed; bottom:10px; left:0; right:0; text-align:center; color:#8fcfa0; font-size:12px}
-  .row{display:flex;gap:10px}
-  .col{flex:1}
-  .small{font-size:12px;color:var(--sub)}
+  .hint{font-size:12px;color:#86efac;margin-top:4px}
 </style>
 </head>
+
 <body>
-
-<a class="lzbrand" href="#" aria-label="LayerZero">
-  <svg viewBox="0 0 128 128" role="img" aria-hidden="true">
-    <rect x="0" y="0" width="128" height="128" rx="28" fill="none"/>
-    <path d="M28 24 h20 v60 h52 v20 h-72 z" fill="#ffffff"/>
-    <path d="M40 24 h68 v16 h-42 l42 44 v16 h-72 v-16 h46 l-42 -44 z" fill="#ffffff" opacity="0.92"/>
-  </svg>
-  <span class="word">LayerZero</span>
-</a>
-
 <div class="wrap">
   <div class="card">
-    <h2>🌉 Bridge Testnet → Stable (fixed)</h2>
+    <h2>🌉 Stable Testnet Bridge (iPhone Fixed)</h2>
 
     <button id="btnConnect" class="secondary">🔌 Connect Wallet</button>
-    <p id="status">Wallet: -</p>
+    <div id="status" class="hint">Wallet: -</div>
 
     <hr>
 
     <h3>Bridge USDT0 → Stable</h3>
     <label>Jumlah (USDT0)</label>
-    <input id="amount" placeholder="contoh: 10" />
+    <input id="amount" placeholder="contoh: 10">
     <div id="bridgeBalance" class="hint">Saldo USDT0: -</div>
-    <button id="btnApprove">✅ Approve</button>
+    <button id="btnApprove">Approve</button>
     <button id="btnBridge">🚀 Bridge Sekarang</button>
 
     <hr>
 
-    <h3>Cek Delivery Status</h3>
-    <label>LayerZero TX Hash (Sepolia)</label>
-    <input id="lzTx" placeholder="0x..." />
+    <h3>Cek Delivery</h3>
+    <label>TX Hash (Sepolia)</label>
+    <input id="lzTx" placeholder="0x...">
     <button id="btnCheck">🔎 Cek Status</button>
-    <div id="statusHint" class="small hint">Cek via LayerZeroScan; bisa delay beberapa menit.</div>
+    <div class="hint">LayerZeroScan bisa delay 1–5 menit.</div>
 
     <hr>
 
     <h3>Unwrap (Stable)</h3>
-    <label>Jumlah (USDT0)</label>
-    <input id="unwrapAmount" placeholder="contoh: 10" />
-    <button id="btnUnwrap">🚀 Unwrap Sekarang</button>
+    <label>Jumlah</label>
+    <input id="unwrapAmount" placeholder="contoh: 10">
+    <button id="btnUnwrap">Unwrap</button>
     <div id="uwBalances" class="hint">USDT0: - | gUSDT: -</div>
 
-    <pre id="log">log siap...\n\nInstruksi cepat:\n1) Connect MetaMask mobile\n2) Switch ke Sepolia untuk Approve & Bridge\n3) Setelah tx di Sepolia sukses, gunakan "Cek Status" untuk lihat progres di LayerZeroScan</pre>
+    <pre id="log">log siap...</pre>
   </div>
 </div>
 
-<footer>by thdx — fixed for Stable testnet</footer>
-
 <script>
-/* ----------------- CONFIG -----------------
- * Pastikan alamat kontrak berikut:
- * - SRC_OFT: address adapter/oft contract pada Sepolia (kontrak yang melakukan send)
- * - DST_OFT: official Stable Testnet OFT (dari docs)
- * - WRAPPER: Stable wrapper address (jika ada) untuk unwrap -- boleh disesuaikan
- *
- * Catatan: untuk safety, jangan taruh private key di file ini. UI ini memakai MetaMask/iOS wallet.
- */
+/* ======================================
+   KONFIGURASI RESMI
+====================================== */
 const CFG = {
-  STABLE : { id:2201, hex:"0x899", rpc:"https://stable-jsonrpc.testnet.chain0.dev", explorer:"https://blockscout.testnet.stable.xyz" },
-  SEPOLIA: { id:11155111, hex:"0xaa36a7" },
+  STABLE : { id:2201, hex:"0x899", rpc:"https://stable-jsonrpc.testnet.chain0.dev"},
+  SEPOLIA:{ id:11155111, hex:"0xaa36a7"},
 
-  // NOTE:
-  // SRC_OFT = contract on Sepolia that performs the send() call (keep your working adapter here)
-  // If you previously used 0xc099... in your tx, keep that as SRC_OFT.
-  SRC_OFT : "0xc099cD946d5efCC35A99D64E808c1430cEf08126", // <--- Sepolia-side OFT adapter (source)
-  // DST_OFT = Stable testnet OFT address (official)
-  DST_OFT : "0x779Ded0c9e1022225f8E0630b35a9b54bE713736", // official Stable Testnet OFT
-  WRAPPER : "0xcAB8F3ed8528655E0C2fad1C504c6CfEccf50B90", // keep as-is (may be your wrapper on Stable)
-  USDT0   : "0xc4DCC311c028e341fd8602D8eB89c5de94625927", // token (Sepolia)
+  /* KONTRAK PENTING */
+  USDT0   : "0xc4DCC311c028e341fd8602D8eB89c5de94625927",
 
-  // LayerZero EIDs
-  dstEid  : 40374,  // Stable Testnet EID
-  srcEid  : 30101   // Sepolia EID
+  /* KONTRAK OFT-ASAL → kontrak send() di Sepolia
+     Iki diisi alamat sing mas pakai tx kemarin:
+  */
+  SRC_OFT : "0xc099cD946d5efCC35A99D64E808c1430cEf08126",
+
+  /* KONTRAK OFT TUJUAN (RESMI) */
+  DST_OFT : "0x779Ded0c9e1022225f8E0630b35a9b54bE713736",
+
+  /* Wrapper Stable (tetep sama) */
+  WRAPPER : "0xcAB8F3ed8528655E0C2fad1C504c6CfEccf50B90",
+
+  srcEid:30101,
+  dstEid:40374
 };
 
-/* ---------- ABI ---------- */
+/* ======================================
+   ABI
+====================================== */
 const ERC20_ABI = [
-  "function approve(address,uint256) returns (bool)",
-  "function balanceOf(address) view returns (uint256)"
+  "function approve(address,uint256) returns(bool)",
+  "function balanceOf(address) view returns(uint256)"
 ];
 const OFT_ABI = [
-  "function quoteSend((uint32,bytes32,uint256,uint256,bytes,bytes,bytes),bool) view returns (uint256 nativeFee,uint256 zroFee)",
+  "function quoteSend((uint32,bytes32,uint256,uint256,bytes,bytes,bytes),bool) view returns(uint256,uint256)",
   "function send((uint32,bytes32,uint256,uint256,bytes,bytes,bytes),(uint256,uint256),address) payable"
 ];
-const WRAP_ABI = ["function depositTo(address,uint256) external"];
+const WRAP_ABI = ["function depositTo(address,uint256)"];
 
-/* ---------- Helpers ---------- */
+/* ======================================
+   HELPERS
+====================================== */
 const $ = id => document.getElementById(id);
-const log = m => { const el=$("log"); el.textContent += (el.textContent? "\n":"") + m; el.scrollTop = el.scrollHeight; console.log(m); };
+const log = m => { $("log").textContent += "\n"+m; };
 
-function addrTo32(a){
-  const c=ethers.utils.getAddress(a);
+function toBytes32(addr){
+  const c = ethers.utils.getAddress(addr);
   return "0x"+c.slice(2).padStart(64,"0");
 }
-async function ensureProvider(){
-  if (!window.ethereum) throw new Error("Gunakan MetaMask / OKX / WalletConnect di iOS");
-  if(!window.ethereum.request) throw new Error("Provider tidak tersedia");
-  window.provider = window.provider || new ethers.providers.Web3Provider(window.ethereum, "any");
+function extraOptions(){
+  const gas = ethers.BigNumber.from("300000");
+  const nativeCap = ethers.utils.parseEther("0.001");
+  const gasHex = ethers.utils.hexZeroPad(gas.toHexString(), 4).slice(2);
+  const capHex = ethers.utils.hexZeroPad(nativeCap.toHexString(), 16).slice(2);
+  return "0x000301001a"+gasHex+capHex;
 }
 
-/* Switch helper (will prompt MetaMask mobile if needed) */
-async function switchTo(chain){
+function safeFee(f){
+  if(ethers.BigNumber.isBigNumber(f)) return f;
+  if(f?.nativeFee) return ethers.BigNumber.from(f.nativeFee);
+  if(f?._hex) return ethers.BigNumber.from(f._hex);
+  return ethers.BigNumber.from(f);
+}
+
+/* ======================================
+   CONNECT (IOS FIXED)
+====================================== */
+let provider, signer, me;
+
+async function connect(){
   try{
-    await window.ethereum.request({ method:"wallet_switchEthereumChain", params:[{chainId:chain.hex}] });
+    if(!window.ethereum) throw new Error("Gunakan MetaMask / OKX Wallet iOS.");
+
+    await window.ethereum.request({ method:"eth_requestAccounts" });
+
+    provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+    signer   = provider.getSigner();
+    me       = await signer.getAddress();
+
+    const net = await provider.getNetwork();
+
+    $("status").textContent = `Wallet: ${me.slice(0,6)}…${me.slice(-4)} | Chain: ${net.chainId}`;
+    log(`Connected as ${me}`);
+    
+    refreshBridgeBalance(); 
+    refreshUwBalances();
   }catch(e){
-    if(e.code===4902){
-      await window.ethereum.request({ method:"wallet_addEthereumChain", params:[{
-        chainId: chain.hex,
-        chainName: chain===CFG.STABLE ? "Stable Testnet" : "Sepolia",
-        rpcUrls: chain===CFG.STABLE ? [CFG.STABLE.rpc] : [],
-        blockExplorerUrls: chain===CFG.STABLE ? [CFG.STABLE.explorer] : [],
-        nativeCurrency:{name:"ETH",symbol:"ETH",decimals:18}
-      }]} );
-    } else { throw e; }
+    log("❌ Connect error: "+e.message);
   }
 }
 
-/* Build extraOptions with non-zero nativeCap to avoid "no native cap" delivery problem.
-   Format used by LayerZero V2: header + gas (4 bytes) + nativeCap (16 bytes)
-*/
-function buildExtraOptions(gas=300000, nativeCapEth="0.001"){
-  const header = "0x000301001a";
-  const g = ethers.BigNumber.from(String(gas));
-  const gasHex = ethers.utils.hexZeroPad(ethers.utils.hexlify(g), 4).slice(2);
-  const cap = ethers.utils.parseEther(nativeCapEth);
-  const capHex = ethers.utils.hexZeroPad(ethers.utils.hexlify(cap), 16).slice(2);
-  return header + gasHex + capHex;
-}
-
-/* Safely parse fee returned by quoteSend */
-function safeParseFee(fee){
-  try{
-    if(ethers.BigNumber.isBigNumber(fee)) return fee;
-    if(fee?.nativeFee){
-      const nf=fee.nativeFee;
-      if(ethers.BigNumber.isBigNumber(nf)) return nf;
-      if(nf?._hex) return ethers.BigNumber.from(nf._hex);
-      return ethers.BigNumber.from(nf);
-    }
-    if(Array.isArray(fee)){
-      const x=fee[0];
-      if(ethers.BigNumber.isBigNumber(x)) return x;
-      if(x?._hex) return ethers.BigNumber.from(x._hex);
-      return ethers.BigNumber.from(x);
-    }
-    if(fee?._hex) return ethers.BigNumber.from(fee._hex);
-  }catch{}
-  throw new Error("Format fee tidak dikenali");
-}
-
-/* ---------- Connect & Balances ---------- */
-let provider, signer, me;
-async function connect(){
-  try{
-    await ensureProvider();
-    await provider.send("eth_requestAccounts", []);
-    signer = provider.getSigner();
-    me = await signer.getAddress();
-    const net = await provider.getNetwork();
-    $("status").textContent = `Wallet: ${me.slice(0,6)}…${me.slice(-4)} | Chain: ${net.chainId}`;
-    log(`✅ Connected: ${me}\nChain: ${net.chainId}`);
-    refreshBridgeBalance(); refreshUwBalances();
-  }catch(e){ log("❌ Connect error: " + (e.message || e)); }
-}
-
+/* ======================================
+   BALANCE REFRESH
+====================================== */
 async function refreshBridgeBalance(){
   try{
-    if(!provider||!me) return;
     const net = await provider.getNetwork();
-    if (net.chainId !== CFG.SEPOLIA.id) return $("bridgeBalance").textContent = "Saldo USDT0: (switch ke Sepolia untuk baca)";
+    if(net.chainId !== CFG.SEPOLIA.id){
+      $("bridgeBalance").textContent="Saldo USDT0: (switch ke Sepolia)";
+      return;
+    }
     const erc = new ethers.Contract(CFG.USDT0, ERC20_ABI, provider);
     const bal = await erc.balanceOf(me);
-    $("bridgeBalance").textContent = "Saldo USDT0: " + ethers.utils.formatUnits(bal,6);
-  }catch{ $("bridgeBalance").textContent = "Saldo USDT0: -"; }
+    $("bridgeBalance").textContent = "Saldo USDT0: "+ethers.utils.formatUnits(bal,6);
+  }catch{}
 }
+
 async function refreshUwBalances(){
   try{
-    if(!provider||!me) return;
     const net = await provider.getNetwork();
-    if (net.chainId !== CFG.STABLE.id) return $("uwBalances").textContent = "USDT0: (switch ke Stable) | gUSDT: -";
+    if(net.chainId !== CFG.STABLE.id){
+      $("uwBalances").textContent="USDT0: (switch ke Stable) | gUSDT: -";
+      return;
+    }
     const erc = new ethers.Contract(CFG.USDT0, ERC20_ABI, provider);
-    const b0 = await erc.balanceOf(me);
-    $("uwBalances").textContent = `USDT0: ${ethers.utils.formatUnits(b0,6)} | gUSDT: -`;
-  }catch{ $("uwBalances").textContent = "USDT0: - | gUSDT: -"; }
+    const bal = await erc.balanceOf(me);
+    $("uwBalances").textContent = "USDT0: "+ethers.utils.formatUnits(bal,6)+" | gUSDT: -";
+  }catch{}
 }
 
-/* ---------- Bridge Flow (frontend) ---------- */
+/* ======================================
+   APPROVE
+====================================== */
 async function approve(){
   try{
-    await ensureProvider(); provider = window.provider;
-    if(!signer) await connect();
     const net = await provider.getNetwork();
-    if (net.chainId !== CFG.SEPOLIA.id){ log("🔁 Switch ke Sepolia..."); await switchTo(CFG.SEPOLIA); }
-
-    const amt = $("amount").value.trim(); if(!amt) return log("⚠️ Masukkan jumlah token.");
+    if(net.chainId !== CFG.SEPOLIA.id){
+      await window.ethereum.request({ method:"wallet_switchEthereumChain", params:[{chainId:CFG.SEPOLIA.hex}] });
+    }
+    const amt = $("amount").value.trim();
     const val = ethers.utils.parseUnits(amt,6);
+
+    log("Approve...");
     const erc = new ethers.Contract(CFG.USDT0, ERC20_ABI, signer);
-    log("🧾 Approving...");
     const tx = await erc.approve(CFG.SRC_OFT, val);
-    log("⏳ TX: "+tx.hash);
-    await tx.wait(); log("✅ Approve sukses!");
-    await refreshBridgeBalance();
-  }catch(e){ log("❌ Approve error: "+(e.error?.message || e.reason || e.message || e)); }
+    log("TX: "+tx.hash);
+    await tx.wait();
+    log("Approve sukses.");
+  }catch(e){ log("Approve error: "+e.message);}
 }
 
+/* ======================================
+   BRIDGE
+====================================== */
 async function bridge(){
   try{
-    await ensureProvider(); provider = window.provider;
-    if(!signer) await connect();
     const net = await provider.getNetwork();
-    if (net.chainId !== CFG.SEPOLIA.id){ log("🔁 Switch ke Sepolia..."); await switchTo(CFG.SEPOLIA); }
-
-    const amtS = $("amount").value.trim(); if(!amtS) return log("⚠️ Masukkan jumlah token.");
-    const amountLD = ethers.utils.parseUnits(amtS,6);
-    const to32 = addrTo32(me);
-    const oft = new ethers.Contract(CFG.SRC_OFT, OFT_ABI, signer);
-
-    const extra = buildExtraOptions(300000, "0.001"); // nativeCap = 0.001 ETH
-    const params = [CFG.dstEid, to32, amountLD, amountLD, extra, "0x", "0x"];
-
-    log("1️⃣ Estimating fee...");
-    const feeRaw = await oft.quoteSend(params, false);
-    const nativeFee = safeParseFee(feeRaw);
-    log(`💰 Fee: ${ethers.utils.formatEther(nativeFee)} ETH`);
-
-    log("2️⃣ Sending...");
-    const tx = await oft.send(params, [nativeFee, ethers.constants.Zero], me, { value:nativeFee, gasLimit:800000 });
-    log(`⏳ TX: ${tx.hash}`);
-    await tx.wait();
-    log("✅ Bridge TX sent on Sepolia! Sekarang tunggu relayer untuk delivery ke Stable Testnet.");
-    await refreshBridgeBalance();
-  }catch(e){ log("❌ Bridge error: "+(e.error?.message || e.reason || e.message || e)); }
-}
-
-/* ---------- Check delivery status (LayerZeroScan) ---------- */
-async function checkStatus(){
-  try{
-    const txHash = $("lzTx").value.trim();
-    if(!/^0x[0-9a-fA-F]{64}$/.test(txHash)) return log("⚠️ Isi TX hash valid (0x + 64 hex).");
-    log("⏳ Mengambil status dari LayerZeroScan...");
-    // Try API endpoint first (may be CORS blocked on some browsers)
-    const api = `https://api.testnet.layerzeroscan.com/tx/${txHash}`;
-    try{
-      const r = await fetch(api);
-      if(!r.ok) throw new Error("API fetch failed");
-      const j = await r.json();
-      // LayerZeroScan API structure may vary; show raw useful fields
-      log("📡 LayerZeroScan API respons:");
-      log(JSON.stringify(j, null, 2).slice(0,2000));
-      // If messages array exists, show delivery status
-      if(j?.messages && j.messages.length){
-        j.messages.forEach(m=>{
-          log(`- messageId: ${m.messageId || m.guid} | status: ${m.status || m.statusName || m.state || 'unknown'}`);
-        });
-      } else {
-        log("⚠️ Tidak ketemu messages di API. Coba alternatif view di website.");
-      }
-      return;
-    }catch(e){
-      log("⚠️ API LayerZeroScan tidak bisa diakses (CORS/API). Mencoba fallback ke website...");
+    if(net.chainId !== CFG.SEPOLIA.id){
+      await window.ethereum.request({ method:"wallet_switchEthereumChain", params:[{chainId:CFG.SEPOLIA.hex}] });
     }
 
-    // Fallback: open web page (user can view in browser)
-    const web = `https://testnet.layerzeroscan.com/tx/${txHash}`;
-    log(`🔗 Buka manual: ${web}`);
-    // Attempt to open in new tab
-    try{ window.open(web, "_blank"); }catch{}
-  }catch(e){ log("❌ Cek status error: "+(e.message||e)); }
+    const amt = $("amount").value.trim();
+    const amountLD = ethers.utils.parseUnits(amt,6);
+
+    const to32 = toBytes32(me);
+    const oft = new ethers.Contract(CFG.SRC_OFT, OFT_ABI, signer);
+    const extra = extraOptions();
+
+    const params = [CFG.dstEid, to32, amountLD, amountLD, extra, "0x","0x"];
+
+    log("Estimating fee...");
+    const feeRaw = await oft.quoteSend(params, false);
+    const nativeFee = safeFee(feeRaw);
+    log("Fee: "+ethers.utils.formatEther(nativeFee));
+
+    log("Sending...");
+    const tx = await oft.send(params, [nativeFee,0], me, {
+      value:nativeFee,
+      gasLimit:900000
+    });
+    log("TX: "+tx.hash);
+    await tx.wait();
+    log("Bridge TX terkirim. Tunggu relayer LayerZero.");
+  }catch(e){ log("Bridge error: "+e.message);}
 }
 
-/* ---------- Unwrap (calls wrapper on Stable) ---------- */
+/* ======================================
+   CHECK STATUS
+====================================== */
+async function checkStatus(){
+  try{
+    const h = $("lzTx").value.trim();
+    if(!/^0x[0-9a-fA-F]{64}$/.test(h)) return log("TX hash tidak valid");
+
+    log("Cek LayerZeroScan...");
+    const url = "https://testnet.layerzeroscan.com/tx/"+h;
+    log("Buka manual: "+url);
+    window.open(url,"_blank");
+  }catch(e){ log("Status error: "+e.message);}
+}
+
+/* ======================================
+   UNWRAP
+====================================== */
 async function unwrap(){
   try{
-    await ensureProvider(); provider = window.provider;
-    if(!signer) await connect();
     const net = await provider.getNetwork();
-    if (net.chainId !== CFG.STABLE.id){ log("🔁 Switch ke Stable..."); await switchTo(CFG.STABLE); }
+    if(net.chainId !== CFG.STABLE.id){
+      await window.ethereum.request({ method:"wallet_switchEthereumChain", params:[{chainId:CFG.STABLE.hex}] });
+    }
 
-    const amtS = $("unwrapAmount").value.trim(); if(!amtS) return log("⚠️ Masukkan jumlah.");
-    const val = ethers.utils.parseUnits(amtS,6);
+    const amt = $("unwrapAmount").value.trim();
+    const val = ethers.utils.parseUnits(amt,6);
 
     const erc = new ethers.Contract(CFG.USDT0, ERC20_ABI, signer);
     const bal = await erc.balanceOf(me);
-    if (bal.lt(val)) return log("❌ Saldo USDT0 tidak cukup.");
+    if(bal.lt(val)) return log("Saldo tidak cukup.");
 
-    log("🧾 Approving ke wrapper...");
+    log("Approve wrapper...");
     const txA = await erc.approve(CFG.WRAPPER, val);
-    log("⏳ TX: "+txA.hash); await txA.wait();
-    log("✅ Approve sukses!");
+    log("TX: "+txA.hash);
+    await txA.wait();
 
     const wrap = new ethers.Contract(CFG.WRAPPER, WRAP_ABI, signer);
-    const txB = await wrap.depositTo(me, val, { gasLimit: 400000 });
-    log("🚀 TX: "+txB.hash); await txB.wait();
-    log("✅ Unwrap sukses → gUSDT diterima.");
-    await refreshUwBalances();
-  }catch(e){ log("❌ Unwrap error: " + (e.data?.message || e.message || e)); }
+    const txB = await wrap.depositTo(me, val, {gasLimit:400000});
+    log("TX: "+txB.hash);
+    await txB.wait();
+
+    log("Unwrap sukses.");
+  }catch(e){ log("Unwrap error: "+e.message);}
 }
 
-/* ---------- Bind events ---------- */
-$("btnConnect").onclick   = connect;
-$("btnApprove").onclick   = approve;
-$("btnBridge").onclick    = bridge;
-$("btnCheck").onclick     = checkStatus;
-$("btnUnwrap").onclick    = unwrap;
-
-/* Auto small refresh if connected */
-setInterval(()=>{ if(window.provider && signer) { refreshBridgeBalance(); refreshUwBalances(); } }, 20000);
+/* ======================================
+   BIND BUTTON
+====================================== */
+$("btnConnect").onclick = connect;
+$("btnApprove").onclick = approve;
+$("btnBridge").onclick  = bridge;
+$("btnCheck").onclick   = checkStatus;
+$("btnUnwrap").onclick  = unwrap;
 </script>
+
 </body>
 </html>
